@@ -45,7 +45,7 @@ The [model notebook](./model.ipynb) runs each of these models on the test set an
 
 ![results chart](results_chart.png)
 
-I was surprised to see how DistilBERT, a state-of-the-art model, performed considerably worse than AFINN and VADER, both of which are older and simpler. One potential explanation is that the text content on which DistilBERT was trained (phrases in movie reviews) is inherently different than what's encountered in news headlines. 
+I was surprised to see DistilBERT, a state-of-the-art model, perform considerably worse than AFINN and VADER, both of which are older and simpler. One potential explanation is that the text content on which DistilBERT was trained (phrases in movie reviews) is inherently different than what's encountered in news headlines. 
 
 BERTweet and roBERTa were the best-performers. However, I'm not convinced it's worth deploying them given they only improve the accuracy by 2.6% and 4.3%, respectively, compared to AFINN. They are huge models (500+ MB each) and require heavy processing power to generate a single score.
 
