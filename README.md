@@ -2,7 +2,7 @@
 
 ## Introduction
 
-It's common knowledge that there's a negativity bias in news which is affecting our mental health. The purpose of this project is to help tackle this problem by finding a good way to measure the negativity in news content. I use Jupyter to assess the performance of several sentiment analysis models in this context.
+It's common knowledge that there's a negativity bias in news which is affecting our mental health. The purpose of this project is to help tackle the problem by finding a good way to measure the negativity in news content. I use Jupyter to assess the performance of several sentiment analysis models in this context.
 
 ## Table of contents
 - [News Positivity Research](#news-positivity-research)
@@ -11,7 +11,7 @@ It's common knowledge that there's a negativity bias in news which is affecting 
   - [Methodology](#methodology)
     - [Sourcing the test set](#sourcing-the-test-set)
     - [Picking the models](#picking-the-models)
-  - [Results](#results)
+  - [Results & discussion](#results--discussion)
 
 ## Methodology
 
@@ -26,7 +26,7 @@ For each headline, I manually assigned a sentiment score of -1 if it was negativ
 
 I chose those three sites because their content covers the full sentiment spectrum. The Canary and positive.news have clear remits to focus on negative and positive content, respectively, while the BBC is neutral. 
 
-The [model notebook](./model.ipynb) has the scripts I used to scrape the headlines. They're designed to work only on the landing pages (e.g. https://bbc.co.uk), not for the article pages (e.g. https://www.bbc.co.uk/news/uk-england-birmingham-58282348). 
+The [data notebook](./data.ipynb) has the scripts I used to scrape the headlines. They're designed to work only on the landing pages (e.g. https://bbc.co.uk) and not the article pages (e.g. https://www.bbc.co.uk/news/uk-england-birmingham-58282348). 
 
 ### Picking the models
 
@@ -41,4 +41,12 @@ AFINN and VADER are two popular dictionary-based models. DistilBERT is the defau
 
 The [model notebook](./model.ipynb) runs each of these models on the test set and compares their performance.
 
-## Results
+## Results & discussion
+
+![results chart](results_chart.png)
+
+I was surprised to see how DistilBERT, a state-of-the-art model, performed considerably worse than AFINN and VADER, both of which are older and simpler. One potential explanation is that the text content on which DistilBERT was trained (phrases in movie reviews) is inherently different than what's encountered in news headlines. 
+
+BERTweet and roBERTa were the best-performers. However, I'm not convinced it's worth deploying them given they only improve the accuracy by 2.6% and 4.3%, respectively, compared to AFINN. They are huge models (500+ MB each) and require heavy processing power to generate a single score.
+
+The clear winner is AFINN. Its accuracy might not look amazing at first, but you have to bear in mind that humans only agree 80% of the time on the sentiment of a piece of text. Therefore, a score of 75.2% means that the model does nearly as well as humans.
